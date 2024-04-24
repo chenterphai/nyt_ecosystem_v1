@@ -28,6 +28,11 @@ const page = () => {
     const toggle = (e: any) => {
         setClose(!close)
         setShow(e)
+
+    }
+    const onClose = () => {
+        toggle(0)
+        setClose(close)
     }
 
     // Notification show
@@ -84,7 +89,7 @@ const page = () => {
             </div>
 
 
-            <Modal i={show} onClose={() => { toggle(0), setClose(close) }} onAlert={() => handleAlert(true)} />
+            <Modal i={show} onClose={onClose} onAlert={() => handleAlert(true)} />
 
             <Notification className={`bg-green-50 text-green-500 transition-all duration-300 ease-in-out ${alert ? 'right-3' : '-right-56'} `}>
                 <FaRegCircleCheck />
