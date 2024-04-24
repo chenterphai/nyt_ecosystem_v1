@@ -79,7 +79,7 @@ const Sidebar: React.FC<SIDEBAR_PROPS> = ({
                                     alt='Logo'
                                     width={500}
                                     height={500}
-                                    className='w-full cursor-pointer'
+                                    className='w-full cursor-pointer animate'
                                     onClick={onClick}
                                 />
                             </div>

@@ -9,6 +9,8 @@ import { CiCirclePlus } from 'react-icons/ci'
 import { MdOutlineUpdate } from 'react-icons/md'
 import { RiDeleteBin2Line } from 'react-icons/ri'
 import { FaRegCircleCheck } from 'react-icons/fa6';
+import { FaArrowUp } from 'react-icons/fa'
+import { useRouter } from 'next/navigation'
 
 const Products = () => {
 
@@ -28,7 +30,6 @@ const Products = () => {
     const toggle = (e: any) => {
         setClose(!close)
         setShow(e)
-
     }
     const onClose = () => {
         toggle(0)
@@ -45,10 +46,11 @@ const Products = () => {
         }, 5000)
     }
 
-
+    const router = useRouter()
     return (
         <div
             className={`w-full rounded ${show !== 0 ? "bg-gray-200" : "bg-gray-200"} relative h-full overflow-hidden`}
+            id='#top'
         >
             <div className='flex flex-col p-2'>
 
@@ -168,6 +170,15 @@ const Products = () => {
                 </div>
             </div>
 
+            <div className='fixed bottom-8 right-12'>
+                <button
+                    onClick={() => router.push('#top')}
+                    className='bg-sky-500 p-2 rounded-full animate-bounce'>
+                    <FaArrowUp
+                        className='text-white'
+                    />
+                </button>
+            </div>
         </div >
     )
 }
