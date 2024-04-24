@@ -10,7 +10,7 @@ import { MdOutlineUpdate } from 'react-icons/md'
 import { RiDeleteBin2Line } from 'react-icons/ri'
 import { FaRegCircleCheck } from 'react-icons/fa6';
 
-const page = () => {
+const Products = () => {
 
 
 
@@ -172,4 +172,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Products
