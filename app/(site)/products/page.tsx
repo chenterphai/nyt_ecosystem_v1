@@ -3,36 +3,41 @@ import Modal from '@/components/Modal'
 import Notification from '@/components/Notification'
 import { supabaseClient } from '@/utils/supabase/client'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { CiCirclePlus } from 'react-icons/ci'
 import { MdOutlineUpdate } from 'react-icons/md'
 import { RiDeleteBin2Line } from 'react-icons/ri'
 import { FaRegCircleCheck } from 'react-icons/fa6';
+import { FaArrowUp } from 'react-icons/fa'
+import { useRouter } from 'next/navigation'
 
-const page = () => {
-
-    const [category, setCategory] = React.useState('')
+const Products = () => {
 
 
-    const [data, setData] = React.useState<any[] | null>(null)
+
+    const [data, setData] = useState<any[] | null>(null)
     const supabase = supabaseClient()
-    React.useEffect(() => {
+    useEffect(() => {
         const fetchData = async () => {
             const { data, error } = await supabase.from('products').select('*').order('id', { ascending: true })
             setData(data)
         }
         fetchData()
     }, [])
-    const [close, setClose] = React.useState(false)
-    const [show, setShow] = React.useState(0)
+    const [close, setClose] = useState(false)
+    const [show, setShow] = useState(0)
     const toggle = (e: any) => {
         setClose(!close)
         setShow(e)
     }
+    const onClose = () => {
+        toggle(0)
+        setClose(close)
+    }
 
     // Notification show
-    const [alert, setAlert] = React.useState(false)
+    const [alert, setAlert] = useState(false)
     const handleAlert = (e: boolean) => {
         setAlert(e)
 
@@ -41,10 +46,11 @@ const page = () => {
         }, 5000)
     }
 
-
+    const router = useRouter()
     return (
         <div
             className={`w-full rounded ${show !== 0 ? "bg-gray-200" : "bg-gray-200"} relative h-full overflow-hidden`}
+            id='#top'
         >
             <div className='flex flex-col p-2'>
 
@@ -85,7 +91,7 @@ const page = () => {
             </div>
 
 
-            <Modal i={show} onClose={() => { toggle(0), setClose(close) }} onAlert={() => handleAlert(true)} />
+            <Modal i={show} onClose={onClose} onAlert={() => handleAlert(true)} />
 
             <Notification className={`bg-green-50 text-green-500 transition-all duration-300 ease-in-out ${alert ? 'right-3' : '-right-56'} `}>
                 <FaRegCircleCheck />
@@ -114,7 +120,6 @@ const page = () => {
                     </div>
                     <div className='col-span-2 font-medium text-sky-600'>
                         <select
-                            onChange={(e) => setCategory(e.target.value)}
                             name="" id="" className='bg-transparent'>
                             <option value="">Category</option>
                             <option value="templates">Template</option>
@@ -165,8 +170,17 @@ const page = () => {
                 </div>
             </div>
 
+            <div className='fixed bottom-8 right-12'>
+                <button
+                    onClick={() => router.push('#top')}
+                    className='bg-sky-500 p-2 rounded-full animate-bounce'>
+                    <FaArrowUp
+                        className='text-white'
+                    />
+                </button>
+            </div>
         </div >
     )
 }
 
-export default page
+export default Products
