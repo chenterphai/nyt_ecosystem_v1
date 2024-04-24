@@ -3,7 +3,7 @@ import Modal from '@/components/Modal'
 import Notification from '@/components/Notification'
 import { supabaseClient } from '@/utils/supabase/client'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { AiOutlineMenu } from 'react-icons/ai'
 import { CiCirclePlus } from 'react-icons/ci'
 import { MdOutlineUpdate } from 'react-icons/md'
@@ -12,27 +12,26 @@ import { FaRegCircleCheck } from 'react-icons/fa6';
 
 const page = () => {
 
-    const [category, setCategory] = React.useState('')
 
 
-    const [data, setData] = React.useState<any[] | null>(null)
+    const [data, setData] = useState<any[] | null>(null)
     const supabase = supabaseClient()
-    React.useEffect(() => {
+    useEffect(() => {
         const fetchData = async () => {
             const { data, error } = await supabase.from('products').select('*').order('id', { ascending: true })
             setData(data)
         }
         fetchData()
     }, [])
-    const [close, setClose] = React.useState(false)
-    const [show, setShow] = React.useState(0)
+    const [close, setClose] = useState(false)
+    const [show, setShow] = useState(0)
     const toggle = (e: any) => {
         setClose(!close)
         setShow(e)
     }
 
     // Notification show
-    const [alert, setAlert] = React.useState(false)
+    const [alert, setAlert] = useState(false)
     const handleAlert = (e: boolean) => {
         setAlert(e)
 
@@ -114,7 +113,6 @@ const page = () => {
                     </div>
                     <div className='col-span-2 font-medium text-sky-600'>
                         <select
-                            onChange={(e) => setCategory(e.target.value)}
                             name="" id="" className='bg-transparent'>
                             <option value="">Category</option>
                             <option value="templates">Template</option>
