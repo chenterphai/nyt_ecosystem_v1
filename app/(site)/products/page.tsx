@@ -46,6 +46,13 @@ const Products = () => {
         }, 5000)
     }
 
+    const [categories, setCategories] = useState('')
+    const handleChangeCategory = (e: any) => {
+        setCategories(e)
+    }
+    console.log(categories);
+
+
     const router = useRouter()
     return (
         <div
@@ -120,6 +127,7 @@ const Products = () => {
                     </div>
                     <div className='col-span-2 font-medium text-sky-600'>
                         <select
+                            onChange={(e) => handleChangeCategory(e.target.value)}
                             name="" id="" className='bg-transparent'>
                             <option value="">Category</option>
                             <option value="templates">Template</option>
